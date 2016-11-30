@@ -38,11 +38,15 @@ void loop()
   //Queue the message
   String senddata = "AT+CIPSEND=" + message.length();
   
+  //Send the message, and delay for one second to allow the
+  //operation to complete
   Serial.print(senddata+"\r\n");
-  delay(300);
+  delay(1000);
+ 
   //Send the message
   Serial.print(message+"\r\n");
-  delay(300);
+  delay(1000);
+ 
   //Close the connection
   Serial.print("AT+CIPCLOSE\r\n");
   delay(10000);
