@@ -4,9 +4,9 @@
  * sitting on 192.168.0.13:12345 
   */
 
-
 void setup() 
 {
+  
   //Set the serial connection to be 9600
   Serial.begin(9600);
 
@@ -27,20 +27,27 @@ void loop()
 
   //Create the message that is going to be sent
   String message = "Hello World";
+  sendInfo(message, "192.168.0.10","12345");
+  delay(5000);
 
-  //Create the connection to the listening server
+
   
-  Serial.print("AT+CIPSTART=\"TCP\",\"192.168.0.10\",12345\r\n");
+}
+
+/*
+ * Function to send a message to a predetermined IP & Port
+ */
+void sendInfo(String message, String IP, String port)
+{
+  //Create the connection to the listening server
+  Serial.print("AT+CIPSTART=\"TCP\",\""+IP+"\","+port+"\r\n");
 
   //Delay to allow it to set up
   delay(1000);
-
-  //Queue the message
-  String senddata = "AT+CIPSEND=" + message.length();
   
   //Send the message, and delay for one second to allow the
   //operation to complete
-  Serial.print(senddata+"\r\n");
+  Serial.print("AT+CIPSEND="+String(message.length())+"\r\n");
   delay(1000);
  
   //Send the message
@@ -49,6 +56,5 @@ void loop()
  
   //Close the connection
   Serial.print("AT+CIPCLOSE\r\n");
-  delay(10000);
-  
 }
+
